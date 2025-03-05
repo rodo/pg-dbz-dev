@@ -7,6 +7,6 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
 EOSQL
 
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
-        CREATE USER manual REPLICATION PASWWORD 'manual';
+        CREATE USER manual REPLICATION PASSWORD 'manual';
         CREATE DATABASE manual OWNER manual;
 EOSQL
