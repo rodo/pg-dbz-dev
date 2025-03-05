@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches: ['main']
-    tags: ['v*']
+    tags: ['v*', 'latest']
 
 # Defines two custom environment variables for the workflow. These are used for the Container registry domain, and a name for the Docker image that this workflow builds.
 env:
@@ -46,7 +46,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-
 
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v2
