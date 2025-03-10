@@ -1,4 +1,4 @@
-FROM postgres:17
+FROM postgres:17.4-alpine3.21
 
 LABEL org.opencontainers.image.authors="rodolphe@quiedeville.org"
 
