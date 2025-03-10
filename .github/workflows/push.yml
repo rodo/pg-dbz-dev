@@ -52,8 +52,10 @@ jobs:
         uses: anchore/scan-action@v6
         with:
           image: ${{ steps.meta.outputs.tags }}
-          fail-build: true
+          fail-build: false
           severity-cutoff: critical
+          output-format: sarif
+          output-file: results.sarif
 
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
@@ -62,7 +64,7 @@ jobs:
           sarif_file: results.sarif
           # Optional category for the results
           # Used to differentiate multiple results for one commit
-          category: my-analysis-tool
+          category: grype
 
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v2

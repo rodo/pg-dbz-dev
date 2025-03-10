@@ -5,7 +5,6 @@ on:
   workflow_dispatch:
   pull_request:
 
-# Defines two custom environment variables for the workflow. These are used for the Container registry domain, and a name for the Docker image that this workflow builds.
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
@@ -41,10 +40,8 @@ jobs:
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
           context: .
-          push: true
-          tags: |
-            experimental
-            ${{ github.GITHUB_REF }}
+          push: false
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Security Scan image
@@ -54,6 +51,8 @@ jobs:
           image: ${{ steps.meta.outputs.tags }}
           fail-build: false
           severity-cutoff: critical
+          output-format: sarif
+          output-file: results.sarif
 
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
